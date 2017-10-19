@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app="CINQapp">
+<head>
+
+
+<meta charset="ISO-8859-1">
+
+<!-- Angular -->
+<script src="lib/angular.min.js"></script>
+
+<!-- Controller -->
+<script src="js/angularCINQ.js"></script>
+
+<!-- Bootstrap CSS -->
+<script src="lib/js/bootstrap.min.js"></script>
+<link href="lib/css/bootstrap.min.css" rel="stylesheet">
+
+<title>Angular crud CINQ</title>
+
+</head>
+	<body>
+
+		<div ng-controller="crudControl">
+
+		<p class="big">
+			<h3>Sort as you wish</h3>
+		</p>
+		<!-- using a selection menu to sort a column its just a shortcut 
+			I rather use a arrow at the colum name showing table order -->
+		<!-- list data by name at first -->
+		Sort by: 	<select ng-model="sortColumn">
+						<option value="id"> id Ascending</option>
+						<option value="name"> Name Ascending</option>
+						<option value="email"> email Ascending</option>
+						<option value="province"> Province Ascending</option>
+					</select>
+
+		<p class="big">
+			<h3>Looking for something specific?</h3>
+		</p>
+		<!-- its just a dumb filter, it will filter by any column -->
+		Filter: 	<input type="text" placeholder="Search data" ng-model="searchInput">
+		
+		
+		<p class="big">
+			<h3>Table with all data</h3>
+		</p>
+		
+		<table cellpadding="2" cellspacing="2" border="1">
+			<tr>
+				<th>id</th>
+				<th>Name</th>
+				<th>email</th>
+				<th>Province</th>
+				<th>Actions</th>
+			</tr>
+	
+			<tr ng-repeat="register in listAllData | orderBy:sortColumn | filter:searchInput">
+				<td>{{register.id}}</td>
+				<td>{{register.name}}</td>
+				<td>{{register.email}}</td>
+				<td>{{register.province}}</td>
+				<td>
+					<a href="#" ng-click="del(register.id)">Delete</a>
+					<a href="#" ng-click="selectEdit(register.id)">Edit</a>
+				</td>
+			</tr>	
+		</table>
+		
+		<!-- for a more complex form I rather using another html page -->
+		
+		<p class="big">
+			<h3>Register Information</h3>
+		</p>
+			<tr>
+				<td>id</td>
+				<td><input type="text" ng-model="id"></td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td><input type="text" ng-model="name"></td>
+			</tr>
+			<tr>
+				<td>email</td>
+				<td><input type="email" ng-model="email"></td>
+			</tr>
+			<tr>
+				<td>Province</td>
+				<td><input type="text" ng-model="province"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td>
+					<input type="button" value="Add" ng-click="add()">
+					<input type="button" value="Save" ng-click="edit()">
+				</td>
+			</tr>
+		
+		</div>
+
+	</body>
+</html>
